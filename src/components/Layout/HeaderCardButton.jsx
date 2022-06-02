@@ -2,9 +2,9 @@ import React from 'react';
 import CartIcon from '../Cart/CartIcon';
 import classes from './HeaderCardButton.module.css';
 
-function Headercardbutton() {
+function Headercardbutton({ onShow }) {
   return (
-    <button className={classes.button} type="button">
+    <button onClick={onShow} className={classes.button} type="button">
       <span classes={classes.icon}>
         <CartIcon />
       </span>

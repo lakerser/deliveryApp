@@ -1,5 +1,6 @@
 import React from 'react';
 import classes from './Cart.module.css';
+import Modal from '../UI/Modal';
 
 export default function Cart() {
   const cartItems = (
@@ -10,20 +11,20 @@ export default function Cart() {
     </ul>
   );
   return (
-    <div>
+    <Modal>
       {cartItems}
       <div classes={classes.total}>
         <span>Total Amount</span>
         <span>35.62</span>
       </div>
       <div className={classes.actions}>
-        <button type="button" className={classes.s['button--alt']}>
+        <button type="button" className={classes['button--alt']}>
           Close
         </button>
         <button type="button" className={classes.button}>
           Order
         </button>
       </div>
-    </div>
+    </Modal>
   );
 }

@@ -1,6 +1,10 @@
 .form {
   text-align: right;
 }
+.form p {
+  background-color: rgba(238, 0, 0, 0.358);
+  padding: 2px 5px;
+}
 
 .form button {
   font: inherit;

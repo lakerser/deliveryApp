@@ -1,7 +1,7 @@
 /* eslint-disable no-case-declarations */
 /* eslint-disable comma-dangle */
 /* eslint-disable react/jsx-no-constructed-context-values */
-import React, { useReact, useReducer } from 'react';
+import React, { useReducer } from 'react';
 import cartContext from './cart-context';
 
 const defaultCartState = {
@@ -11,8 +11,8 @@ const defaultCartState = {
 const cartReducer = (state, action) => {
   switch (action.type) {
     case 'ADD':
-      let updatedItems = state.items.concat(action.items);
-      let updatedTotalAmount = state.totalAmount + action.item.price * action.item.item.amount;
+      const updatedItems = state.items.concat(action.item);
+      const updatedTotalAmount = state.totalAmount + action.item.price * action.item.amount;
       return {
         items: updatedItems,
         totalAmount: updatedTotalAmount

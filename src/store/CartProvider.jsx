@@ -1,17 +1,43 @@
+/* eslint-disable no-case-declarations */
+/* eslint-disable comma-dangle */
 /* eslint-disable react/jsx-no-constructed-context-values */
-import React from 'react';
+import React, { useReact, useReducer } from 'react';
 import cartContext from './cart-context';
 
+const defaultCartState = {
+  items: [],
+  totalAmount: 0,
+};
+const cartReducer = (state, action) => {
+  switch (action.type) {
+    case 'ADD':
+      let updatedItems = state.items.concat(action.items);
+      let updatedTotalAmount = state.totalAmount + action.item.price * action.item.item.amount;
+      return {
+        items: updatedItems,
+        totalAmount: updatedTotalAmount
+      };
+    default:
+      return state;
+  }
+};
+
 export default function CartProvider({ children }) {
-  const addItemToCartHandler = (item) => {};
-  const removeItemFromCartHandler = (id) => {};
+  const [cartState, dispatchCartAction] = useReducer(
+    cartReducer,
+    defaultCartState
+  );
+  const addItemToCartHandler = (item) => {
+    dispatchCartAction({ type: 'ADD', item });
+  };
+  const removeItemFromCartHandler = (id) => {
+    dispatchCartAction({ type: 'REMOVE', id });
+  };
   const cart = {
-    items: [],
-    totalAmount: 0,
+    items: cartState.items,
+    totalAmount: cartState.totalAmount,
     addItem: addItemToCartHandler,
     removeItem: removeItemFromCartHandler,
   };
-  return (
-    <cartContext.Provider value={cart}>{children}</cartContext.Provider>
-  );
+  return <cartContext.Provider value={cart}>{children}</cartContext.Provider>;
 }

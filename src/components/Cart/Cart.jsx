@@ -1,12 +1,29 @@
-import React from 'react';
+/* eslint-disable react/jsx-no-bind */
+import React, { useContext } from 'react';
 import classes from './Cart.module.css';
 import Modal from '../UI/Modal';
+import cartContext from '../../store/cart-context';
+import CartItem from './CartItem/CartItem';
 
 export default function Cart({ onHide }) {
+  const cartCTX = useContext(cartContext);
+  const hasItems = cartCTX.items.length > 0;
+
+  const cartItemRemoveHandler = (id) => {};
+
+  const cartItemAddHandler = (item) => {};
+
   const cartItems = (
     <ul className={classes['cart-items']}>
-      {[{ id: 'c1', name: 'Sushi', amount: 2, price: 12.99 }].map((item) => (
-        <li>{item.name}</li>
+      {cartCTX.items.map((item) => (
+        <CartItem
+          key={item.id}
+          name={item.name}
+          amount={item.amount}
+          price={item.price}
+          onRemove={cartItemRemoveHandler.bind(null, item.id)}
+          onAdd={cartItemAddHandler.bind(null, item)}
+        />
       ))}
     </ul>
   );
@@ -15,7 +32,7 @@ export default function Cart({ onHide }) {
       {cartItems}
       <div className={classes.total}>
         <span>Total Amount</span>
-        <span>$ 35.62</span>
+        <span>{`$ ${cartCTX.totalAmount}`}</span>
       </div>
       <div className={classes.actions}>
         <button
@@ -25,9 +42,11 @@ export default function Cart({ onHide }) {
         >
           Close
         </button>
-        <button onClick={onHide} type="button" className={classes.button}>
-          Order
-        </button>
+        {hasItems && (
+          <button onClick={onHide} type="button" className={classes.button}>
+            Order
+          </button>
+        )}
       </div>
     </Modal>
   );

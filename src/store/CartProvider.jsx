@@ -12,10 +12,10 @@ const cartReducer = (state, action) => {
   switch (action.type) {
     case 'ADD':
       const updatedItems = state.items.concat(action.item);
-      const updatedTotalAmount = state.totalAmount + action.item.price * action.item.amount;
+      const updatedTotalAmount = state.totalAmount + (action.item.price * action.item.amount);
       return {
         items: updatedItems,
-        totalAmount: updatedTotalAmount
+        totalAmount: updatedTotalAmount,
       };
     default:
       return state;
@@ -35,7 +35,7 @@ export default function CartProvider({ children }) {
   };
   const cart = {
     items: cartState.items,
-    totalAmount: cartState.totalAmount,
+    totalAmount: cartState.totalAmount.toFixed(2),
     addItem: addItemToCartHandler,
     removeItem: removeItemFromCartHandler,
   };

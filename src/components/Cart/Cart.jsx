@@ -9,9 +9,9 @@ export default function Cart({ onHide }) {
   const cartCTX = useContext(cartContext);
   const hasItems = cartCTX.items.length > 0;
 
-  const cartItemRemoveHandler = (id) => {};
+  const cartItemRemoveHandler = () => {};
 
-  const cartItemAddHandler = (item) => {};
+  const cartItemAddHandler = () => {};
 
   const cartItems = (
     <ul className={classes['cart-items']}>
